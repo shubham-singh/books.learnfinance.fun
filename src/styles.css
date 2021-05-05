@@ -223,6 +223,6 @@ ul {
     border-radius: var(--border-radius-xs);
     background-color: grey;
     color: white;
-    z-index: 3;
+    z-index: 2;
   }
 }

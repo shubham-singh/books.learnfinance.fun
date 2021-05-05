@@ -5,7 +5,6 @@ import NavLayout from "./Navigation/NavLayout";
 import ProductList from "./Product/ProductList";
 import WishlistLayout from "./Wishlist/WishlistLayout";
 import CartLayout from "./Cart/CartLayout";
-
 import { Routes, Route } from "react-router-dom";
 import Snackbar from "./Snackbar/Snackbar";
 import ProductView from "./Product/ProductView";
