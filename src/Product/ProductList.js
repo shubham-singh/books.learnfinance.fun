@@ -1,8 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+
 import Product from "./Product";
-import { useProduct } from "./ProductContext";
+import Loader from "../Loader/Loader";
 import SortFilterLayout from "../SortFilter/SortFilterLayout";
+
+import { useProduct } from "./ProductContext";
+import { useLoader } from "../Loader/LoaderContext";
+
+import { trimNames, getSortedData, getFilteredData } from "../utils/function";
+import { getData } from "../utils/serverRequest";
 
 const ProductList = () => {
   const {
@@ -13,72 +19,13 @@ const ProductList = () => {
     productDispatch
   } = useProduct();
 
-  const [showLoader, setShowLoader] = useState(null);
+  const { loader, setLoader } = useLoader();
 
-  const trimNames = (arrOfObjects) => {
-    return arrOfObjects.map((book) => {
-      if (book.title.length > 35) {
-        return { ...book, title: book.title.slice(0, 35) + "..." };
-      }
-      return book;
-    });
-  };
-
-  const getData = async () => {
-    setShowLoader("show");
-    try {
-      const response = await axios.get(
-        "https://books-learnfinance-fun.herokuapp.com/"
-      );
-      // const response = await axios.get(
-      //   "https://bookslearnfinancefun-backend.ishubhamsingh.repl.co/"
-      // );
-      const data = trimNames(response.data.products);
-      productDispatch({ type: "SET_PRODUCTS", payload: data });
-      setShowLoader(null);
-    } catch (error) {
-      console.log("Something went wrong", error, error.message);
-      setShowLoader("error");
-    }
-  };
-  // const getData = async () => {
-  //   try {
-  //     const response = await axios.get("api/books");
-  //     const data = trimNames(response.data);
-  //     // productDispatch({ type: "SET_PRODUCTS", payload: response.data });
-  //     productDispatch({ type: "SET_PRODUCTS", payload: data });
-  //   } catch (error) {
-  //     console.log("Something went wrong");
-  //   }
-  // };
+  const url = "https://books-learnfinance-fun.herokuapp.com/";
 
   useEffect(() => {
-    getData();
+    getData(url, productDispatch, trimNames, setLoader);
   }, []);
-
-  function getSortedData(productList, sortBy) {
-    if (sortBy && sortBy === "LOW_TO_HIGH") {
-      return [...productList].sort((a, b) => a.price - b.price);
-    } else if (sortBy && sortBy === "HIGH_TO_LOW") {
-      return [...productList].sort((a, b) => b.price - a.price);
-    } else {
-      return products;
-    }
-  }
-
-  function getFilteredData(productList, showInventoryAll, categories) {
-    return categories
-      .reduce(
-        (accumulator, initial) => {
-          return [
-            ...accumulator,
-            ...productList.filter((product) => product.category === initial)
-          ];
-        },
-        categories.length === 0 ? productList : []
-      )
-      .filter(({ inStock }) => (showInventoryAll ? true : inStock));
-  }
 
   const categoriesArr = Object.keys(category);
 
@@ -90,6 +37,7 @@ const ProductList = () => {
   }, []);
 
   const sortedData = getSortedData(products, sortBy);
+
   const filteredData = getFilteredData(
     sortedData,
     showInventoryAll,
@@ -97,14 +45,9 @@ const ProductList = () => {
   );
 
   function showProducts() {
-    if (showLoader === "show") {
-      return (
-        <div className="spinner">
-          <div></div>
-          <div></div>
-        </div>
-      );
-    } else if (showLoader === "error") {
+    if (loader === "show") {
+      return <Loader />;
+    } else if (loader === "error") {
       return <p>something went wrong :(</p>;
     } else {
       return filteredData.map((product) => (
