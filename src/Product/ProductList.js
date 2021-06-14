@@ -8,7 +8,7 @@ import { useProduct } from "./ProductContext";
 import { useLoader } from "../Loader/LoaderContext";
 
 import { trimNames, getSortedData, getFilteredData } from "../utils/function";
-import { getData } from "../utils/serverRequest";
+import { getBooks } from "../utils/serverRequest";
 
 const ProductList = () => {
   const {
@@ -21,10 +21,10 @@ const ProductList = () => {
 
   const { loader, setLoader } = useLoader();
 
-  const url = "https://books-learnfinance-fun.herokuapp.com/";
+  const url = "https://books-learnfinance-fun.herokuapp.com/books/";
 
   useEffect(() => {
-    getData(url, productDispatch, trimNames, setLoader);
+    getBooks(url, productDispatch, trimNames, setLoader);
   }, []);
 
   const categoriesArr = Object.keys(category);
@@ -50,9 +50,9 @@ const ProductList = () => {
     } else if (loader === "error") {
       return <p>something went wrong :(</p>;
     } else {
-      return filteredData.map((product) => (
-        <Product key={product._id} product={product} />
-      ));
+      return filteredData.map((product) => {
+        return <Product key={product._id} product={product} />;
+      });
     }
   }
 

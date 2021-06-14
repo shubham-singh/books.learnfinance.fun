@@ -8,7 +8,7 @@ const ChangeQuantity = ({ product }) => {
   const { cart, cartDispatch } = useCart();
 
   const cartProduct = item(cart, product);
-
+  // console.log(cartProduct);
   return (
     <div className="change-quantity">
       <button

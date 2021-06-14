@@ -13,6 +13,7 @@ const AddToCart = ({ product, wishlistView, text }) => {
   const { snackbarDispatch } = useSnackbar();
 
   const inCart = isItemInCart(cart, product);
+  console.log("inside add to cart component");
 
   if (inCart) {
     return <ChangeQuantity product={product} />;

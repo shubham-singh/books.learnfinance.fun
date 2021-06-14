@@ -6,20 +6,6 @@
   text-align: center;
 }
 
-.snackbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  /* left: 50%; */
-  margin: var(--margin-l) var(--margin-m);
-  padding: 0 var(--padding-xl);
-  border-radius: var(--border-radius-xs);
-  /* background-color: rgba(0, 0, 0, 0.9); */
-  background-color: grey;
-  color: white;
-  z-index: 3;
-}
-
 .heading {
   font-family: "Dancing Script", cursive;
 }

@@ -4,7 +4,6 @@ import { useWishlist } from "./WishlistContext";
 import { Link } from "react-router-dom";
 const WishlistDesktop = () => {
   const { wishlist } = useWishlist();
-
   if (wishlist.length === 0) {
     return (
       <div className="flex-c justify-c h-full-vp">

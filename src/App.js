@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavLayout from "./Navigation/NavLayout";
 import ProductList from "./Product/ProductList";
@@ -12,9 +12,11 @@ import PrivateRoute from "./Auth/PrivateRoute";
 import Login from "./Login/Login";
 
 export default function App() {
+  const location = useLocation();
+
   return (
     <div className="App">
-      <NavLayout />
+      {location.pathname === "/login" ? null : <NavLayout />}
       <Snackbar />
       <Routes>
         <Route path="/" element={<ProductList />} />

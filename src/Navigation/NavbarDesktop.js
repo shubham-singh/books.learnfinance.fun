@@ -5,7 +5,6 @@ import { useCart } from "../Cart/CartContext";
 const NavbarDesktop = () => {
   const { wishlist } = useWishlist();
   const { items } = useCart();
-
   return (
     <nav className="nav nav-classic pt-xs pb-xs">
       <div>
