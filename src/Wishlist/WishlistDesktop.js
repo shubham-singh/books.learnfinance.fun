@@ -2,6 +2,7 @@ import ProductHorizontal from "../Product/ProductHorizontal";
 import Product from "../Product/Product";
 import { useWishlist } from "./WishlistContext";
 import { Link } from "react-router-dom";
+
 const WishlistDesktop = () => {
   const { wishlist } = useWishlist();
   if (wishlist.length === 0) {
@@ -34,4 +35,5 @@ const WishlistDesktop = () => {
     </div>
   );
 };
+
 export default WishlistDesktop;

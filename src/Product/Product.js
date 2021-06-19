@@ -1,16 +1,11 @@
 import AddToWishlist from "../Wishlist/AddToWishlist";
 import AddToCart from "../Cart/AddToCart";
 
-const Product = ({
-  product,
-  wishlistView = false,
-  cartView = false,
-  cartButtonText = "Add To Cart"
-}) => {
+const Product = ({ product, wishlistView = false, cartView = false }) => {
   return (
     <div className="product-card">
       <div className="product-image relative">
-        <img className="shadow" src={product.img[0]} alt="product" />
+        <img className="shadow" src={product.img.default} alt="product" />
         <AddToWishlist product={product} cartView={cartView} />
       </div>
 
@@ -24,11 +19,7 @@ const Product = ({
           &#8377; {product.price.toLocaleString()}
         </h4>
         <div className="cart-action">
-          <AddToCart
-            product={product}
-            wishlistView={wishlistView}
-            text={cartButtonText}
-          />
+          <AddToCart product={product} wishlistView={wishlistView} />
         </div>
       </div>
     </div>

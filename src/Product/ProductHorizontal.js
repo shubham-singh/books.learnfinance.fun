@@ -10,7 +10,7 @@ const Product = ({
   return (
     <div className="product-card-horizontal">
       <div className="product-image-horizontal relative">
-        <img className="shadow" src={product.img[0]} alt="product" />
+        <img className="shadow" src={product.img.default} alt="product" />
         <AddToWishlist product={product} cartView={cartView} />
       </div>
 

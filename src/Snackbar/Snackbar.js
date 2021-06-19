@@ -7,8 +7,7 @@ const Snackbar = () => {
   useEffect(() => {
     const timerID = setTimeout(() => {
       snackbarDispatch({ type: "DELETE_SNACKBAR" });
-    }, 3000);
-
+    }, 2000);
     return function () {
       clearTimeout(timerID);
     };

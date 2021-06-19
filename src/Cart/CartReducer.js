@@ -1,15 +1,23 @@
 export const CartReducer = (state, action) => {
   switch (action.type) {
+    case "SET_CART":
+      return {
+        ...state,
+        cart: action.payload
+      };
+
     case "ADD_TO_CART":
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload, inCart: true, quantity: 1 }]
+        cart: [...state.cart, { book: action.payload, quantity: 1 }]
       };
 
     case "REMOVE_FROM_CART":
       return {
         ...state,
-        cart: state.cart.filter((product) => product._id !== action.payload._id)
+        cart: state.cart.filter(
+          (product) => product.book._id !== action.payload._id
+        )
       };
 
     case "INCREMENT":

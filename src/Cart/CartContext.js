@@ -10,7 +10,7 @@ export const CartContextProvider = (props) => {
 
     total: function () {
       return this.cart.reduce((accumulator, initial) => {
-        return accumulator + initial.price * initial.quantity;
+        return accumulator + initial.book.price * initial.quantity;
       }, 0);
     },
 

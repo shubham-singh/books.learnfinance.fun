@@ -18,13 +18,13 @@ const CartMobile = () => {
     );
   } else {
     return (
-      <div>
+      <div className="products">
         <h2 className="m-m">Cart</h2>
         <div className="cart-products">
-          {cart.map((product) => {
+          {cart.map(({ book, quantity }) => {
             return (
               <>
-                <Product key={product._id} product={product} cartView={true} />
+                <Product key={book._id} product={book} cartView={true} />
                 <hr className="w-full" />
               </>
             );

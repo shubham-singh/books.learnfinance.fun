@@ -3,13 +3,23 @@ const AuthReducer = (state, action) => {
     case "LOGIN":
       return {
         loggedIn: true,
-        token: localStorage.setItem("auth_learnfinance", action.payload)
+        firstName: action.payload.firstName,
+        token: localStorage.setItem(
+          "auth_learnfinance",
+          JSON.stringify(action.payload.token)
+        )
       };
 
     case "LOGOUT":
       return {
         loggedIn: false,
         token: localStorage.removeItem("auth_learnfinance")
+      };
+
+    case "USER_INFO":
+      return {
+        ...state,
+        firstName: action.payload.firstName
       };
 
     default:

@@ -9,6 +9,7 @@ import { useLoader } from "../Loader/LoaderContext";
 
 import { trimNames, getSortedData, getFilteredData } from "../utils/function";
 import { getBooks } from "../utils/serverRequest";
+import { useAuth } from "../Auth/AuthContext";
 
 const ProductList = () => {
   const {
@@ -21,11 +22,11 @@ const ProductList = () => {
 
   const { loader, setLoader } = useLoader();
 
-  const url = "https://books-learnfinance-fun.herokuapp.com/books/";
+  const { user } = useAuth();
 
   useEffect(() => {
-    getBooks(url, productDispatch, trimNames, setLoader);
-  }, []);
+    getBooks(productDispatch, trimNames, setLoader);
+  }, [user.loggedIn]);
 
   const categoriesArr = Object.keys(category);
 

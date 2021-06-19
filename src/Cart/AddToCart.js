@@ -2,18 +2,35 @@ import { useCart } from "./CartContext";
 import ChangeQuantity from "./ChangeQuantity";
 import { useWishlist } from "../Wishlist/WishlistContext";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
+import { addToCart } from "../utils/serverRequest";
+import { useAuth } from "../Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const isItemInCart = (cartArr, product) => {
-  return cartArr.some((item) => item._id === product._id);
+  return cartArr.some(({ book }) => book._id === product._id);
 };
 
-const AddToCart = ({ product, wishlistView, text }) => {
+const AddToCart = ({ product, wishlistView }) => {
   const { cart, cartDispatch } = useCart();
   const { wishlistDispatch } = useWishlist();
   const { snackbarDispatch } = useSnackbar();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const inCart = isItemInCart(cart, product);
-  console.log("inside add to cart component");
+
+  const handleClick = () => {
+    if (!user.loggedIn) {
+      return navigate("/login");
+    }
+    addToCart(
+      product,
+      wishlistView,
+      cartDispatch,
+      wishlistDispatch,
+      snackbarDispatch
+    );
+  };
 
   if (inCart) {
     return <ChangeQuantity product={product} />;
@@ -28,29 +45,8 @@ const AddToCart = ({ product, wishlistView, text }) => {
     );
   } else {
     return (
-      <button
-        className="btn btn-classic shadow w-full"
-        onClick={() => {
-          if (wishlistView) {
-            cartDispatch({ type: "ADD_TO_CART", payload: product });
-            wishlistDispatch({
-              type: "ADD_OR_REMOVE_WISHLIST",
-              payload: product
-            });
-            snackbarDispatch({
-              type: "SHOW_SNACKBAR",
-              payload: "Moved to Cart"
-            });
-          } else {
-            cartDispatch({ type: "ADD_TO_CART", payload: product });
-            snackbarDispatch({
-              type: "SHOW_SNACKBAR",
-              payload: "Added to Cart"
-            });
-          }
-        }}
-      >
-        {text}
+      <button className="btn btn-classic shadow w-full" onClick={handleClick}>
+        Add To Cart
       </button>
     );
   }

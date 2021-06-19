@@ -20,12 +20,12 @@ const CartDesktop = () => {
     return (
       <div className="cart-desktop">
         <div className="cart-products">
-          {cart.map((product) => {
+          {cart.map(({ book, quantity }) => {
             return (
               <>
                 <ProductHorizontal
-                  key={product._id}
-                  product={product}
+                  key={book._id}
+                  product={book}
                   cartView={true}
                 />
                 <hr className="w-full" />
@@ -35,12 +35,12 @@ const CartDesktop = () => {
         </div>
         <div className="cart-summary m-xl">
           <h1 className="large m-xl">Summary</h1>
-          <div class="cart-list">
-            {cart.map((item) => {
+          <div className="cart-list">
+            {cart.map((product) => {
               return (
-                <p className="flex-r justify-b m-l">
-                  <span>{item.title}</span>
-                  <span>x {item.quantity}</span>
+                <p key={product._id} className="flex-r justify-b m-l">
+                  <span className="ellipsis">{product.book.title}</span>
+                  <span>x {product.quantity}</span>
                 </p>
               );
             })}
