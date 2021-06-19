@@ -10,18 +10,20 @@ import Snackbar from "./Snackbar/Snackbar";
 import ProductView from "./Product/ProductView";
 import PrivateRoute from "./Auth/PrivateRoute";
 import Login from "./Login/Login";
+import Signup from "./Login/Signup";
 
 export default function App() {
   const location = useLocation();
 
   return (
     <div className="App">
-      {location.pathname === "/login" ? null : <NavLayout />}
+      {["/login", "/signup"].includes(location.pathname) ? null : <NavLayout />}
       <Snackbar />
       <Routes>
         <Route path="/" element={<ProductList />} />
         <Route path="/book/:id" element={<ProductView />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <PrivateRoute path="/cart" element={<CartLayout />} />
         <PrivateRoute path="/wishlist" element={<WishlistLayout />} />
       </Routes>
