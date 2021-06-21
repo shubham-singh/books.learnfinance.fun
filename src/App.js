@@ -21,9 +21,8 @@ export default function App() {
       {["/login", "/signup"].includes(location.pathname) ? null : <NavLayout />}
       <Snackbar />
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        {/* <Route path="/books" element={<ProductList />} /> */}
-        <Route path="/" element={<ProductList />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/books" element={<ProductList />} />
         <Route path="/book/:id" element={<ProductView />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
