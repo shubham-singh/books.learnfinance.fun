@@ -1,14 +1,12 @@
-import { ReactComponent as Varsity } from "../assets/images/carousel/varsity.png";
-import { ReactComponent as Warren } from "../assets/images/carousel/warren-buffett.png";
 export const carouselData = [
   {
     button: "Read More",
-    src: <Varsity />
-    // src: "../assets/images/carousel/varsity.png"
+    src:
+      "https://res.cloudinary.com/shubhamsingh/image/upload/v1624265836/varsity_xytxcu.png"
   },
   {
     button: "Read More",
-    src: <Warren />
-    // src: "../assets/images/carousel/warren-buffett.png"
+    src:
+      "https://res.cloudinary.com/shubhamsingh/image/upload/v1624265837/warren-buffet_fcmz7f.png"
   }
 ];
