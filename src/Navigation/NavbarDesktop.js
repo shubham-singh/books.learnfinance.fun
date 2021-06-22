@@ -2,11 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { useWishlist } from "../Wishlist/WishlistContext";
 import { useCart } from "../Cart/CartContext";
 import { useAuth } from "../Auth/AuthContext";
+import { useSnackbar } from "../Snackbar/SnackbarContext";
+import { ReactComponent as CartIcon } from "../assets/icons/CartIcon.svg";
+import { ReactComponent as WishlistNavIcon } from "../assets/icons/WishlistNavIcon.svg";
 
 const NavbarDesktop = () => {
   const { wishlist } = useWishlist();
   const { items } = useCart();
   const { user, authDispatch } = useAuth();
+  const { snackbarDispatch } = useSnackbar();
   const navigate = useNavigate();
 
   const userHandler = () => {
@@ -23,6 +27,11 @@ const NavbarDesktop = () => {
 
   const logoutHandler = () => {
     authDispatch({ type: "LOGOUT" });
+    snackbarDispatch({
+      type: "SHOW_SNACKBAR",
+      payload: "Successfully Logged out"
+    });
+    navigate("/");
   };
 
   return (
@@ -34,12 +43,13 @@ const NavbarDesktop = () => {
           </Link>
         </h1>
       </div>
-      <div className="site-nav-left">
+      <div className="flex-row-center site-nav-left">
         {userHandler()}
         <li>
           <Link to="/wishlist">
-            <div>
-              Wishlist
+            <div className="flex-row-center">
+              {/* Wishlist */}
+              <WishlistNavIcon />
               <span className="txt-badge txt-badge-secondary">
                 {wishlist.length}
               </span>
@@ -48,8 +58,9 @@ const NavbarDesktop = () => {
         </li>
         <li>
           <Link to="/cart">
-            <div>
-              Cart
+            <div className="flex-row-center">
+              {/* Cart */}
+              <CartIcon />
               <span className="txt-badge txt-badge-secondary">{items}</span>
             </div>
           </Link>

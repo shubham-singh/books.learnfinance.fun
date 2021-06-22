@@ -33,15 +33,19 @@ const CartDesktop = () => {
             );
           })}
         </div>
-        <div className="cart-summary m-xl">
+        <div className="cart-summary m-xl shadow">
           <h1 className="large m-xl">Summary</h1>
           <div className="cart-list">
             {cart.map((product) => {
               return (
-                <p key={product._id} className="flex-r justify-b m-l">
-                  <span className="ellipsis">{product.book.title}</span>
+                <span key={product._id} className="flex-r justify-b m-m">
+                  <span>
+                    {product.book.title.length > 35
+                      ? product.book.title.slice(0, 35) + "..."
+                      : product.book.title}
+                  </span>
                   <span>x {product.quantity}</span>
-                </p>
+                </span>
               );
             })}
           </div>

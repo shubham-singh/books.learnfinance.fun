@@ -45,7 +45,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user.loggedIn) {
-      if (state?.from === null) {
+      if (state !== null) {
         navigate(state.from);
       } else {
         navigate("/");

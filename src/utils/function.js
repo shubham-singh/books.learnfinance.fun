@@ -8,10 +8,10 @@ export const setupAuthHeaderForServiceCalls = () => {
   delete axios.defaults.headers.common["Authorization"];
 };
 
-export const trimNames = (arrOfObjects) => {
+export const trimNames = (arrOfObjects, len = 35) => {
   return arrOfObjects.map((book) => {
-    if (book.title.length > 35) {
-      return { ...book, title: book.title.slice(0, 35) + "..." };
+    if (book.title.length > len) {
+      return { ...book, title: book.title.slice(0, len) + "..." };
     }
     return book;
   });

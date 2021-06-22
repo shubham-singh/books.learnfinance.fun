@@ -134,10 +134,14 @@ ul {
   color: black;
 }
 
-.ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.category {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  /* margin: var(--margin-m); */
 }
 
 @media screen and (min-width: 769px) {
@@ -192,9 +196,8 @@ ul {
     position: sticky;
     top: 10%;
     max-height: 80vh;
-    border: 1px solid black;
-    border-radius: var(--border-radius-xs);
-    padding: var(--padding-s);
+    max-width: 30vw;
+    padding: var(--padding-m);
   }
 
   .cart-desktop {
