@@ -52,7 +52,7 @@ const NavbarMobile = () => {
           onClick={() => setNavOpen("no")}
         >
           {userHandler()}
-          <Link to="/">Books</Link>
+          <Link to="/books">Books</Link>
           <Link to="/wishlist">
             <div className="flex-row-center">Wishlist</div>
           </Link>
