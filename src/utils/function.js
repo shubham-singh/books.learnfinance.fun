@@ -40,3 +40,15 @@ export const getFilteredData = (productList, showInventoryAll, categories) => {
     )
     .filter(({ inStock }) => (showInventoryAll ? true : inStock));
 };
+
+export const userHandler = (user, navigate) => {
+  if (user.loggedIn) {
+    return <li>Hi, {user.firstName}</li>;
+  } else {
+    return (
+      <li className="pointer" onClick={() => navigate("/login")}>
+        Login
+      </li>
+    );
+  }
+};

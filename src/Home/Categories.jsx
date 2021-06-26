@@ -50,16 +50,14 @@ const Categories = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex-row-center mt-xl">
+    <div className="flex-row-center flex-wrap">
       {categories.map((category) => {
         return (
           <div
-            className="m-m pointer glow category"
+            className="m-s pointer category"
             onClick={() => category.navigate()}
           >
-            {category.name}
-            <br />
-            <br />
+            <p>{category.name}</p>
             <RightIcon />
           </div>
         );

@@ -3,7 +3,7 @@ import { useProduct } from "../Product/ProductContext";
 const SortFilterDesktop = () => {
   const { productDispatch, showInventoryAll, category } = useProduct();
   return (
-    <aside className="sidebar hide-t">
+    <aside className="sidebar">
       <div>
         <h2>Sort By</h2>
         <div

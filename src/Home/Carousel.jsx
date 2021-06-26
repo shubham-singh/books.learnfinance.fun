@@ -52,11 +52,8 @@ const Carousel = () => {
         style={{ position: "absolute", right: "3%", top: "50%" }}
         onClick={next}
       />
-      <a href={carouselData[index].link} target="blank" className="hide-t">
-        <button
-          className="btn btn-classic shadow"
-          style={{ position: "absolute", right: "40%", bottom: "15%" }}
-        >
+      <a href={carouselData[index].link} target="blank">
+        <button className="btn btn-classic shadow carousel-button">
           {carouselData[index].buttonText}
         </button>
       </a>

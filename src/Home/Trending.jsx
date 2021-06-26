@@ -2,15 +2,13 @@ import { useProduct } from "../Product/ProductContext";
 import Product from "../Product/Product";
 
 const Trending = () => {
-  // const { products } = useProduct();
   const trendingArr = [
     {
       img: {
         default: "https://m.media-amazon.com/images/I/51Sn0TXUHuL.jpg"
       },
       _id: "607a9235f2e0f7060896efff",
-      title:
-        "The Art of Value Investing: How the World's Best Investors Beat the Market",
+      title: "The Art of Value Investing: How the...",
       author: "John Heins",
       price: 2272,
       category: "Value Investing",

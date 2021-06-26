@@ -5,6 +5,7 @@ import { useAuth } from "../Auth/AuthContext";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
 import { ReactComponent as CartIcon } from "../assets/icons/CartIcon.svg";
 import { ReactComponent as WishlistNavIcon } from "../assets/icons/WishlistNavIcon.svg";
+import { ReactComponent as LogoutIcon } from "../assets/icons/LogoutIcon.svg";
 
 const NavbarDesktop = () => {
   const { wishlist } = useWishlist();
@@ -48,7 +49,6 @@ const NavbarDesktop = () => {
         <li>
           <Link to="/wishlist">
             <div className="flex-row-center">
-              {/* Wishlist */}
               <WishlistNavIcon />
               <span className="txt-badge txt-badge-secondary">
                 {wishlist.length}
@@ -59,14 +59,13 @@ const NavbarDesktop = () => {
         <li>
           <Link to="/cart">
             <div className="flex-row-center">
-              {/* Cart */}
               <CartIcon />
               <span className="txt-badge txt-badge-secondary">{items}</span>
             </div>
           </Link>
         </li>
         <li className="pointer" onClick={logoutHandler}>
-          {user.loggedIn ? "Logout" : null}
+          {user.loggedIn ? <LogoutIcon /> : null}
         </li>
       </div>
     </nav>

@@ -10,6 +10,7 @@ import { useLoader } from "../Loader/LoaderContext";
 import { trimNames, getSortedData, getFilteredData } from "../utils/function";
 import { getBooks } from "../utils/serverRequest";
 import { useAuth } from "../Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
   const {
@@ -23,6 +24,8 @@ const ProductList = () => {
   const { loader, setLoader } = useLoader();
 
   const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBooks(productDispatch, trimNames, setLoader);
@@ -61,7 +64,9 @@ const ProductList = () => {
     <div className="homepage">
       <SortFilterLayout />
 
-      <h1 className="heading m-null p-s hide-d">Learn Finance</h1>
+      <h1 className="heading m-null p-s hide-d" onClick={() => navigate("/")}>
+        Learn Finance
+      </h1>
 
       <div className="products">{showProducts()}</div>
 
