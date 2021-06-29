@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as RightIcon } from "../assets/icons/RightIcon.svg";
 import { useProduct } from "../Product/ProductContext";
+import { lang } from "../Localisation/LocalisationData";
+import { useLocalisation } from "../Localisation/LocalisationContext";
 
 const Categories = () => {
+  const { language } = useLocalisation();
+
   const categories = [
     {
       name: "Options Trading",
-      img: "https://media.warriortrading.com/2016/04/Blog_Options_Trading.jpg",
+      categoryName: lang[language].options,
       navigate: function () {
         productDispatch({
           type: "FILTER_BY_CATEGORY",
@@ -17,7 +21,7 @@ const Categories = () => {
     },
     {
       name: "Technical Analysis",
-      img: "https://media.warriortrading.com/2016/04/Blog_Options_Trading.jpg",
+      categoryName: lang[language].technical,
       navigate: function () {
         productDispatch({
           type: "FILTER_BY_CATEGORY",
@@ -28,7 +32,7 @@ const Categories = () => {
     },
     {
       name: "Value Investing",
-      img: "https://media.warriortrading.com/2016/04/Blog_Options_Trading.jpg",
+      categoryName: lang[language].value,
       navigate: function () {
         productDispatch({
           type: "FILTER_BY_CATEGORY",
@@ -39,7 +43,7 @@ const Categories = () => {
     },
     {
       name: "Show all",
-      img: "https://media.warriortrading.com/2016/04/Blog_Options_Trading.jpg",
+      categoryName: lang[language].all,
       navigate: function () {
         return navigate("/books");
       }
@@ -57,7 +61,7 @@ const Categories = () => {
             className="m-s pointer category"
             onClick={() => category.navigate()}
           >
-            <p>{category.name}</p>
+            <p>{category.categoryName}</p>
             <RightIcon />
           </div>
         );

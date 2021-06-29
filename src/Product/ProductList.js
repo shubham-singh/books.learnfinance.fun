@@ -4,12 +4,19 @@ import Product from "./Product";
 import Loader from "../Loader/Loader";
 import SortFilterLayout from "../SortFilter/SortFilterLayout";
 
-import { useProduct } from "./ProductContext";
-import { useLoader } from "../Loader/LoaderContext";
-
-import { trimNames, getSortedData, getFilteredData } from "../utils/function";
-import { getBooks } from "../utils/serverRequest";
 import { useAuth } from "../Auth/AuthContext";
+import { useLoader } from "../Loader/LoaderContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { useProduct } from "./ProductContext";
+
+import { lang } from "../Localisation/LocalisationData";
+import {
+  trimNames,
+  getSortedData,
+  getFilteredData,
+  scrollToTop
+} from "../utils/function";
+import { getBooks } from "../utils/serverRequest";
 import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
@@ -27,9 +34,15 @@ const ProductList = () => {
 
   const navigate = useNavigate();
 
+  const { language } = useLocalisation();
+
   useEffect(() => {
     getBooks(productDispatch, trimNames, setLoader);
   }, [user.loggedIn]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   const categoriesArr = Object.keys(category);
 
@@ -61,11 +74,11 @@ const ProductList = () => {
   }
 
   return (
-    <div className="homepage">
+    <div className="product-list">
       <SortFilterLayout />
 
       <h1 className="heading m-null p-s hide-d" onClick={() => navigate("/")}>
-        Learn Finance
+        {lang[language].learnFinance}
       </h1>
 
       <div className="products">{showProducts()}</div>

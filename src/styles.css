@@ -87,6 +87,10 @@ ul {
   margin: 10rem 0;
 }
 
+.product-list {
+  min-height: 100vh;
+}
+
 /* Product */
 .product-card-horizontal {
   display: flex;
@@ -157,6 +161,17 @@ ul {
   bottom: 17vh;
 }
 
+.footer {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.footer a {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
 @media screen and (min-width: 769px) {
   .sidebar {
     grid-area: sidebar;
@@ -188,7 +203,7 @@ ul {
     z-index: 3;
   }
 
-  .homepage {
+  .product-list {
     display: grid;
     grid-template-columns: 18% auto;
     grid-template-areas: "sidebar main-content main-content";
@@ -224,5 +239,10 @@ ul {
     position: absolute;
     right: 40vw;
     bottom: 14vh;
+  }
+
+  .select {
+    padding: var(--padding-xs);
+    border-radius: var(--border-radius-xs);
   }
 }

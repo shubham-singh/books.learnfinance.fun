@@ -1,18 +1,22 @@
 import { useProduct } from "../Product/ProductContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 
 const SortFilterDesktop = () => {
   const { productDispatch, showInventoryAll, category } = useProduct();
+  const { language } = useLocalisation();
+
   return (
     <aside className="sidebar">
       <div>
-        <h2>Sort By</h2>
+        <h2>{lang[language].sortBy}</h2>
         <div
           className="pointer"
           onClick={() => {
             productDispatch({ type: "SORT", payload: "LOW_TO_HIGH" });
           }}
         >
-          <span>Low to high</span>
+          <span>{lang[language].lowToHigh}</span>
         </div>
 
         <div
@@ -21,7 +25,7 @@ const SortFilterDesktop = () => {
             productDispatch({ type: "SORT", payload: "HIGH_TO_LOW" });
           }}
         >
-          <span>High to low</span>
+          <span>{lang[language].highToLow}</span>
         </div>
 
         <div
@@ -30,10 +34,10 @@ const SortFilterDesktop = () => {
             productDispatch({ type: "REMOVE_SORT" });
           }}
         >
-          <span>Reset</span>
+          <span>{lang[language].reset}</span>
         </div>
 
-        <h2>Filter</h2>
+        <h2>{lang[language].filter}</h2>
 
         <div>
           <input
@@ -49,7 +53,7 @@ const SortFilterDesktop = () => {
               });
             }}
           />
-          <label htmlFor="value">Value Investing</label>
+          <label htmlFor="value">{lang[language].value}</label>
         </div>
 
         <div>
@@ -66,7 +70,7 @@ const SortFilterDesktop = () => {
               });
             }}
           />
-          <label htmlFor="options">Options Trading</label>
+          <label htmlFor="options">{lang[language].options}</label>
         </div>
 
         <div>
@@ -83,7 +87,7 @@ const SortFilterDesktop = () => {
               });
             }}
           />
-          <label htmlFor="technical">Technical Analysis</label>
+          <label htmlFor="technical">{lang[language].technical}</label>
         </div>
 
         <div>
@@ -95,7 +99,7 @@ const SortFilterDesktop = () => {
             name="Include Out of Stock"
             onChange={() => productDispatch({ type: "INCLUDE_OUT_OF_STOCK" })}
           />
-          <label htmlFor="stock">Include Out of Stock</label>
+          <label htmlFor="stock">{lang[language].includeOutOfStock}</label>
         </div>
       </div>
     </aside>

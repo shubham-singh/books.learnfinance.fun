@@ -1,17 +1,20 @@
 import ProductHorizontal from "../Product/ProductHorizontal";
 import { useCart } from "./CartContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 import { Link } from "react-router-dom";
 
 const CartDesktop = () => {
   const { cart, total, items } = useCart();
+  const { language } = useLocalisation();
 
   if (items === 0) {
     return (
       <div className="flex-c justify-c h-full-vp">
-        <span className="x-large">Your cart is empty</span>
+        <span className="x-large">{lang[language].emptyCart}</span>
         <Link to="/">
           <button className="btn btn-classic shadow medium mt-m">
-            Go Shopping
+            {lang[language].goShopping}
           </button>
         </Link>
       </div>
@@ -34,7 +37,7 @@ const CartDesktop = () => {
           })}
         </div>
         <div className="cart-summary m-xl shadow">
-          <h1 className="large m-xl">Summary</h1>
+          <h1 className="large m-xl">{lang[language].summary}</h1>
           <div className="cart-list">
             {cart.map((product) => {
               return (
@@ -49,8 +52,12 @@ const CartDesktop = () => {
               );
             })}
           </div>
-          <h2 className="m-m">Total: &#8377; {total.toLocaleString()}</h2>
-          <button className="btn btn-classic shadow">Checkout</button>
+          <h2 className="m-m">
+            {lang[language].total}: &#8377; {total.toLocaleString()}
+          </h2>
+          <button className="btn btn-classic shadow">
+            {lang[language].checkout}
+          </button>
         </div>
       </div>
     );

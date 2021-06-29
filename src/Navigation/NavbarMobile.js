@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/AuthContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
+import { useSnackbar } from "../Snackbar/SnackbarContext";
 import { ReactComponent as MenuIcon } from "../assets/icons/MenuIcon.svg";
 import { ReactComponent as LoginIcon } from "../assets/icons/LoginIcon.svg";
 import { ReactComponent as LogoutIcon } from "../assets/icons/LogoutIcon.svg";
 import { ReactComponent as CloseIcon } from "../assets/icons/CloseIcon.svg";
-import { useAuth } from "../Auth/AuthContext";
-import { useSnackbar } from "../Snackbar/SnackbarContext";
 
 const NavbarMobile = () => {
   const [navOpen, setNavOpen] = useState("no");
 
   const { user, authDispatch } = useAuth();
   const { snackbarDispatch } = useSnackbar();
+  const { language, setLanguage } = useLocalisation();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -27,7 +30,9 @@ const NavbarMobile = () => {
     if (user.loggedIn) {
       return (
         <div className="popup-heading">
-          <div>Hi, {user.firstName}</div>
+          <div>
+            {lang[language].greeting} {user.firstName}
+          </div>
           <div>
             <LogoutIcon onClick={logoutHandler} fill="black" />
           </div>
@@ -35,8 +40,8 @@ const NavbarMobile = () => {
       );
     } else {
       return (
-        <div className="popup-heading" onClick={() => navigate("/login")}>
-          <LoginIcon />
+        <div className="popup-heading">
+          <LoginIcon onClick={() => navigate("/login")} />
           <CloseIcon />
         </div>
       );
@@ -52,12 +57,12 @@ const NavbarMobile = () => {
           onClick={() => setNavOpen("no")}
         >
           {userHandler()}
-          <Link to="/books">Books</Link>
+          <Link to="/books">{lang[language].books}</Link>
           <Link to="/wishlist">
-            <div className="flex-row-center">Wishlist</div>
+            <div className="flex-row-center">{lang[language].wishlist}</div>
           </Link>
           <Link to="/cart">
-            <div className="flex-row-center">Cart</div>
+            <div className="flex-row-center">{lang[language].cart}</div>
           </Link>
         </div>
       </div>

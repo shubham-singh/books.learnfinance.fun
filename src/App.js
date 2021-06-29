@@ -12,6 +12,7 @@ import PrivateRoute from "./Auth/PrivateRoute";
 import Login from "./Login/Login";
 import Signup from "./Login/Signup";
 import Home from "./Home/Home";
+import Footer from "./Footer/Footer";
 
 export default function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ export default function App() {
         <PrivateRoute path="/cart" element={<CartLayout />} />
         <PrivateRoute path="/wishlist" element={<WishlistLayout />} />
       </Routes>
+      {["/cart", "/wishlist"].includes(location.pathname) ? null : <Footer />}
     </div>
   );
 }

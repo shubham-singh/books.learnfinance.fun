@@ -5,6 +5,7 @@
 # Features
 
 - Common authentication among all learnfinance.fun web applications
+- Multiple Languages
 - REST API
 - Sorting of books
 - Filter books by category

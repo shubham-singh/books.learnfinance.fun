@@ -3,6 +3,8 @@ import { useWishlist } from "../Wishlist/WishlistContext";
 import { useCart } from "../Cart/CartContext";
 import { useAuth } from "../Auth/AuthContext";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 import { ReactComponent as CartIcon } from "../assets/icons/CartIcon.svg";
 import { ReactComponent as WishlistNavIcon } from "../assets/icons/WishlistNavIcon.svg";
 import { ReactComponent as LogoutIcon } from "../assets/icons/LogoutIcon.svg";
@@ -12,15 +14,20 @@ const NavbarDesktop = () => {
   const { items } = useCart();
   const { user, authDispatch } = useAuth();
   const { snackbarDispatch } = useSnackbar();
+  const { language, setLanguage } = useLocalisation();
   const navigate = useNavigate();
 
   const userHandler = () => {
     if (user.loggedIn) {
-      return <li>Hi, {user.firstName}</li>;
+      return (
+        <li>
+          {lang[language].greeting} {user.firstName}
+        </li>
+      );
     } else {
       return (
         <li className="pointer" onClick={() => navigate("/login")}>
-          Login
+          {lang[language].login}
         </li>
       );
     }
@@ -40,7 +47,7 @@ const NavbarDesktop = () => {
       <div>
         <h1 className="site-nav-left">
           <Link to="/">
-            <h1 className="heading">Learn Finance</h1>
+            <h1 className="heading">{lang[language].learnFinance}</h1>
           </Link>
         </h1>
       </div>
@@ -66,6 +73,17 @@ const NavbarDesktop = () => {
         </li>
         <li className="pointer" onClick={logoutHandler}>
           {user.loggedIn ? <LogoutIcon /> : null}
+        </li>
+        <li>
+          <select
+            className="select"
+            name="languages"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+          </select>
         </li>
       </div>
     </nav>

@@ -1,7 +1,10 @@
-import { useProduct } from "../Product/ProductContext";
 import Product from "../Product/Product";
+import { lang } from "../Localisation/LocalisationData";
+import { useLocalisation } from "../Localisation/LocalisationContext";
 
 const Trending = () => {
+  const { language } = useLocalisation();
+
   const trendingArr = [
     {
       img: {
@@ -58,7 +61,7 @@ const Trending = () => {
 
   return (
     <>
-      <h2 className="mt-xl">Trending</h2>
+      <h2 className="mt-xl">{lang[language].trending}</h2>
       <div className="products">
         {trendingArr.map((product) => {
           return <Product key={product._id} product={product} />;

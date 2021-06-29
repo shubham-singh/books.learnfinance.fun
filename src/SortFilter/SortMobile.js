@@ -1,15 +1,18 @@
 import { useProduct } from "../Product/ProductContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 import { ReactComponent as CloseIcon } from "../assets/icons/CloseIcon.svg";
 
 const Sort = ({ setOpen }) => {
   const { productDispatch } = useProduct();
+  const { language } = useLocalisation();
 
   return (
     <div className="popup">
       <div className="popup-empty" onClick={() => setOpen(null)}></div>
       <div className="popup-content popup-half shadow">
         <div className="popup-heading">
-          <h3>Sort by</h3>
+          <h3>{lang[language].sortBy}</h3>
           <CloseIcon
             onClick={() => {
               setOpen(null);
@@ -24,7 +27,7 @@ const Sort = ({ setOpen }) => {
             setOpen(null);
           }}
         >
-          <span>Low to high</span>
+          <span>{lang[language].lowToHigh}</span>
         </div>
 
         <div
@@ -34,7 +37,7 @@ const Sort = ({ setOpen }) => {
             setOpen(null);
           }}
         >
-          <span>High to low</span>
+          <span>{lang[language].highToLow}</span>
         </div>
 
         <div
@@ -44,7 +47,7 @@ const Sort = ({ setOpen }) => {
             setOpen(null);
           }}
         >
-          <span>Reset</span>
+          <span>{lang[language].reset}</span>
         </div>
       </div>
     </div>

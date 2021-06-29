@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthContext";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
 import { signup } from "../utils/serverRequest";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 
 const Signup = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -14,6 +16,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { snackbarDispatch } = useSnackbar();
   const { user, authDispatch } = useAuth();
+  const { language } = useLocalisation();
 
   const onChangeHandler = (e) => {
     setSignupInfo({
@@ -28,6 +31,13 @@ const Signup = () => {
   };
 
   useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth"
+    });
+  }, []);
+
+  useEffect(() => {
     if (user.loggedIn) {
       navigate("/");
     }
@@ -40,12 +50,12 @@ const Signup = () => {
           className="heading m-null p-s pointer"
           onClick={() => navigate("/")}
         >
-          Learn Finance
+          {lang[language].learnFinance}
         </h1>
         <input
           className="m-xs p-s"
           type="name"
-          placeholder="First name"
+          placeholder={lang[language].firstName}
           name="firstName"
           value={signupInfo.firstName}
           onChange={onChangeHandler}
@@ -54,7 +64,7 @@ const Signup = () => {
         <input
           className="m-xs p-s"
           type="name"
-          placeholder="Last name"
+          placeholder={lang[language].lastName}
           name="lastName"
           value={signupInfo.lastName}
           onChange={onChangeHandler}
@@ -62,7 +72,7 @@ const Signup = () => {
         <input
           className="m-xs p-s"
           type="email"
-          placeholder="Email"
+          placeholder={lang[language].email}
           name="email"
           value={signupInfo.email}
           onChange={onChangeHandler}
@@ -71,18 +81,18 @@ const Signup = () => {
         <input
           className="m-xs p-s"
           type="password"
-          placeholder="Password"
+          placeholder={lang[language].password}
           name="password"
           value={signupInfo.password}
           onChange={onChangeHandler}
           required
         />
         <button className="btn btn-classic shadow mt-l" type="submit">
-          Create my account
+          {lang[language].signup}
         </button>
       </form>
       <p className="mt-xl pointer" onClick={() => navigate("/login")}>
-        Already have an account? Login now!
+        {lang[language].loginText}
       </p>
     </div>
   );

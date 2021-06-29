@@ -1,7 +1,11 @@
 import { useProduct } from "../Product/ProductContext";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 import { ReactComponent as CloseIcon } from "../assets/icons/CloseIcon.svg";
+
 const Filter = (props) => {
   const { productDispatch, showInventoryAll, category } = useProduct();
+  const { language } = useLocalisation();
 
   return (
     <div className="popup">
@@ -9,7 +13,7 @@ const Filter = (props) => {
 
       <div className="popup-content popup-full shadow">
         <div className="popup-heading">
-          <h3>Filters</h3>
+          <h3>{lang[language].filter}</h3>
           <CloseIcon
             onClick={() => {
               props.setOpen(null);
@@ -27,7 +31,7 @@ const Filter = (props) => {
               name="Include Out of Stock"
               onChange={() => productDispatch({ type: "INCLUDE_OUT_OF_STOCK" })}
             />
-            <label for="stock">Include Out of Stock</label>
+            <label for="stock">{lang[language].includeOutOfStock}</label>
           </div>
 
           <hr className="hr-half" />
@@ -46,7 +50,7 @@ const Filter = (props) => {
                 });
               }}
             />
-            <label for="options">Options Trading</label>
+            <label for="options">{lang[language].options}</label>
           </div>
 
           <div className="p-s large">
@@ -63,7 +67,7 @@ const Filter = (props) => {
                 });
               }}
             />
-            <label for="technical">Technical Analysis</label>
+            <label for="technical">{lang[language].technical}</label>
           </div>
 
           <div className="p-s large">
@@ -80,7 +84,7 @@ const Filter = (props) => {
                 });
               }}
             />
-            <label for="value">Value Investing</label>
+            <label for="value">{lang[language].value}</label>
           </div>
 
           <hr className="hr-half" />
@@ -92,7 +96,7 @@ const Filter = (props) => {
               props.setOpen(null);
             }}
           >
-            <span>Reset</span>
+            <span>{lang[language].reset}</span>
           </div>
         </div>
       </div>

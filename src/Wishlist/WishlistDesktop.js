@@ -1,17 +1,20 @@
-import ProductHorizontal from "../Product/ProductHorizontal";
+import { Link } from "react-router-dom";
 import Product from "../Product/Product";
 import { useWishlist } from "./WishlistContext";
-import { Link } from "react-router-dom";
+import { useLocalisation } from "../Localisation/LocalisationContext";
+import { lang } from "../Localisation/LocalisationData";
 
 const WishlistDesktop = () => {
   const { wishlist } = useWishlist();
+  const { language } = useLocalisation();
+
   if (wishlist.length === 0) {
     return (
       <div className="flex-c justify-c h-full-vp">
-        <span className="x-large">Your wishlist is empty</span>
+        <span className="x-large">{lang[language].emptyWishlist}</span>
         <Link to="/">
           <button className="btn btn-classic shadow medium mt-m">
-            See products
+            {lang[language].goShopping}
           </button>
         </Link>
       </div>
