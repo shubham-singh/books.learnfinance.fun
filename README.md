@@ -5,6 +5,7 @@
 # Features
 
 - Common authentication among all learnfinance.fun web applications
+- JSON Web Token Authorization
 - Multiple Languages
 - REST API
 - Sorting of books

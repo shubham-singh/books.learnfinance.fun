@@ -5,6 +5,7 @@ import { useSnackbar } from "../Snackbar/SnackbarContext";
 import { signup } from "../utils/serverRequest";
 import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
+import { scrollToTop } from "../utils/function";
 
 const Signup = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -31,10 +32,7 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    window.scroll({
-      top: 0,
-      behavior: "smooth"
-    });
+    scrollToTop();
   }, []);
 
   useEffect(() => {
