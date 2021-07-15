@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useWishlist } from "../Wishlist/WishlistContext";
 import { useCart } from "../Cart/CartContext";
 import { useAuth } from "../Auth/AuthContext";
@@ -6,7 +6,9 @@ import { useSnackbar } from "../Snackbar/SnackbarContext";
 import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
 import { ReactComponent as CartIcon } from "../assets/icons/CartIcon.svg";
+import { ReactComponent as CartIconOutline } from "../assets/icons/CartIconOutline.svg";
 import { ReactComponent as WishlistNavIcon } from "../assets/icons/WishlistNavIcon.svg";
+import { ReactComponent as WishlistNavIconOutline } from "../assets/icons/WishlistNavIconOutline.svg";
 import { ReactComponent as LogoutIcon } from "../assets/icons/LogoutIcon.svg";
 
 const NavbarDesktop = () => {
@@ -16,6 +18,7 @@ const NavbarDesktop = () => {
   const { snackbarDispatch } = useSnackbar();
   const { language, setLanguage } = useLocalisation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const userHandler = () => {
     if (user.loggedIn) {
@@ -56,7 +59,11 @@ const NavbarDesktop = () => {
         <li>
           <Link to="/wishlist">
             <div className="flex-row-center">
-              <WishlistNavIcon />
+              {location.pathname === "/wishlist" ? (
+                <WishlistNavIcon />
+              ) : (
+                <WishlistNavIconOutline />
+              )}
               <span className="txt-badge txt-badge-secondary">
                 {wishlist.length}
               </span>
@@ -66,13 +73,19 @@ const NavbarDesktop = () => {
         <li>
           <Link to="/cart">
             <div className="flex-row-center">
-              <CartIcon />
+              {location.pathname === "/cart" ? (
+                <CartIcon />
+              ) : (
+                <CartIconOutline />
+              )}
               <span className="txt-badge txt-badge-secondary">{items}</span>
             </div>
           </Link>
         </li>
-        <li className="pointer" onClick={logoutHandler}>
-          {user.loggedIn ? <LogoutIcon /> : null}
+        <li>
+          {user.loggedIn ? (
+            <LogoutIcon className="pointer" onClick={logoutHandler} />
+          ) : null}
         </li>
         <li>
           <select

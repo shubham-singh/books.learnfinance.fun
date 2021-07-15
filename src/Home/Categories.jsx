@@ -58,6 +58,7 @@ const Categories = () => {
       {categories.map((category) => {
         return (
           <div
+            key={category.categoryName}
             className="m-s pointer category"
             onClick={() => category.navigate()}
           >

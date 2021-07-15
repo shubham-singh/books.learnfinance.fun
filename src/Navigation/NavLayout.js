@@ -1,6 +1,7 @@
 import Media from "react-media";
 import NavbarMobile from "./NavbarMobile";
 import NavbarDesktop from "./NavbarDesktop";
+
 const NavLayout = () => {
   return (
     <>
