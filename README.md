@@ -12,7 +12,6 @@
 - Filter books by category
 - Wishlist management
 - Cart management
-- Notifications
 - Responsive to different screen sizes
 
 # Techstack
