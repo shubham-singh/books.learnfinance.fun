@@ -6,6 +6,7 @@
 
 - Common authentication among all learnfinance.fun web applications
 - JSON Web Token Authorization
+- Razorpay checkout
 - Multiple Languages
 - REST API
 - Sorting of books
