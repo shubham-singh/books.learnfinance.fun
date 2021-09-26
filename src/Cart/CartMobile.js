@@ -3,10 +3,13 @@ import { useCart } from "./CartContext";
 import { Link } from "react-router-dom";
 import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
+import { checkout } from "../utils/serverRequest";
+import { useSnackbar } from "../Snackbar/SnackbarContext";
 
 const CartMobile = () => {
   const { cart, total, items } = useCart();
   const { language } = useLocalisation();
+  const { snackbarDispatch } = useSnackbar();
 
   if (items === 0) {
     return (
@@ -34,7 +37,7 @@ const CartMobile = () => {
           })}
         </div>
         <div className="empty-space"></div>
-        <div className="stick-b large">
+        <div className="stick-b large" onClick={() => checkout(snackbarDispatch)}>
           <span>{lang[language].checkout}</span>
           <span>&#8377; {total.toLocaleString()}</span>
         </div>
