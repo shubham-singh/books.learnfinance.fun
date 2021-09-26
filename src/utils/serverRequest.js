@@ -8,8 +8,9 @@ import {
   GET_WISHLIST,
   CHANGE_QUANTITY,
   SIGNUP,
-  GET_USER
+  GET_USER,
 } from "./apiRoutes";
+import { loadScript } from "./function";
 
 export const getBooks = async (productDispatch, trimNames, setLoader) => {
   setLoader("show");
@@ -29,7 +30,7 @@ export const getUser = async (authDispatch) => {
     const user = await axios.get(GET_USER);
     authDispatch({
       type: "USER_INFO",
-      payload: { firstName: user.data.user.firstName }
+      payload: { firstName: user.data.user.firstName },
     });
   } catch (error) {
     console.log(error);
@@ -41,7 +42,7 @@ export const getCart = async (cartDispatch) => {
     const cart = await axios.get(GET_CART);
     cartDispatch({
       type: "SET_CART",
-      payload: cart.data.cart.books
+      payload: cart.data.cart.books,
     });
   } catch (error) {
     console.log(error);
@@ -53,7 +54,7 @@ export const getWishlist = async (wishlistDispatch) => {
     const wishlist = await axios.get(GET_WISHLIST);
     wishlistDispatch({
       type: "SET_WISHLIST",
-      payload: wishlist.data.wishlist.books
+      payload: wishlist.data.wishlist.books,
     });
   } catch (error) {
     console.log(error);
@@ -64,7 +65,7 @@ export const login = async (loginInfo, authDispatch, snackbarDispatch) => {
   try {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Logging In"
+      payload: "Logging In",
     });
     const response = await axios.post(LOGIN, loginInfo);
     if (response.data.success) {
@@ -72,8 +73,8 @@ export const login = async (loginInfo, authDispatch, snackbarDispatch) => {
         type: "LOGIN",
         payload: {
           firstName: response.data.user.firstName,
-          token: response.data.token
-        }
+          token: response.data.token,
+        },
       });
     }
     if (response.status === 400) {
@@ -81,19 +82,19 @@ export const login = async (loginInfo, authDispatch, snackbarDispatch) => {
     }
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Successfully Logged In"
+      payload: "Successfully Logged In",
     });
   } catch (error) {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: error.response.data.error
+      payload: error.response.data.error,
     });
   }
 };
 
 export const logout = (authDispatch) => {
   authDispatch({
-    type: "LOGOUT"
+    type: "LOGOUT",
   });
 };
 
@@ -101,7 +102,7 @@ export const signup = async (signupInfo, authDispatch, snackbarDispatch) => {
   try {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Creating your account"
+      payload: "Creating your account",
     });
     const response = await axios.post(SIGNUP, signupInfo);
     if (response.data.success) {
@@ -109,8 +110,8 @@ export const signup = async (signupInfo, authDispatch, snackbarDispatch) => {
         type: "LOGIN",
         payload: {
           firstName: response.data.user.firstName,
-          token: response.data.token
-        }
+          token: response.data.token,
+        },
       });
     }
     if (response.status === 400) {
@@ -118,12 +119,12 @@ export const signup = async (signupInfo, authDispatch, snackbarDispatch) => {
     }
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Successfully Signed Up"
+      payload: "Successfully Signed Up",
     });
   } catch (error) {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: error.response.data.error
+      payload: error.response.data.error,
     });
   }
 };
@@ -139,21 +140,21 @@ export const addToCart = async (
     if (wishlistView) {
       snackbarDispatch({
         type: "SHOW_SNACKBAR",
-        payload: "Moving to Cart"
+        payload: "Moving to Cart",
       });
       const wishlist = await axios.post(ADD_OR_REMOVE_WISHLIST, {
-        book: product._id
+        book: product._id,
       });
       const cart = await axios.post(ADD_TO_CART, { book: product._id });
       if (wishlist.data.success && cart.data.success) {
         cartDispatch({ type: "ADD_TO_CART", payload: product });
         wishlistDispatch({
           type: "ADD_OR_REMOVE_WISHLIST",
-          payload: product
+          payload: product,
         });
         snackbarDispatch({
           type: "SHOW_SNACKBAR",
-          payload: "Moved to Cart"
+          payload: "Moved to Cart",
         });
       }
       if (!wishlist.data.success || !cart.data.success) {
@@ -162,14 +163,14 @@ export const addToCart = async (
     } else {
       snackbarDispatch({
         type: "SHOW_SNACKBAR",
-        payload: "Adding to Cart"
+        payload: "Adding to Cart",
       });
       const response = await axios.post(ADD_TO_CART, { book: product._id });
       if (response.data.success) {
         cartDispatch({ type: "ADD_TO_CART", payload: product });
         snackbarDispatch({
           type: "SHOW_SNACKBAR",
-          payload: "Added to Cart"
+          payload: "Added to Cart",
         });
       }
       if (!response.data.success) {
@@ -179,7 +180,7 @@ export const addToCart = async (
   } catch (error) {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: error.response.data.error
+      payload: error.response.data.error,
     });
   }
 };
@@ -192,22 +193,22 @@ export const changeQuantity = async (
   try {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Updating Quantity"
+      payload: "Updating Quantity",
     });
     const response = await axios.post(CHANGE_QUANTITY, {
       book: cartProduct.book._id,
-      quantity: quantity
+      quantity: quantity,
     });
     if (response.data.success) {
       snackbarDispatch({
         type: "SHOW_SNACKBAR",
-        payload: "Quantity Updated"
+        payload: "Quantity Updated",
       });
     }
   } catch (error) {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: error.response.data.error
+      payload: error.response.data.error,
     });
   }
 };
@@ -222,34 +223,79 @@ export const addOrRemoveFromWishlist = async (
   try {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Updating Wishlist"
+      payload: "Updating Wishlist",
     });
     if (cartView) {
       const cartResponse = await axios.post(CHANGE_QUANTITY, {
         book: product._id,
-        quantity: 0
+        quantity: 0,
       });
       if (cartResponse.data.success) {
         cartDispatch({ type: "REMOVE_FROM_CART", payload: product });
       }
     }
     const response = await axios.post(ADD_OR_REMOVE_WISHLIST, {
-      book: product._id
+      book: product._id,
     });
     if (response.data.success) {
       wishlistDispatch({
         type: "ADD_OR_REMOVE_WISHLIST",
-        payload: product
+        payload: product,
       });
       snackbarDispatch({
         type: "SHOW_SNACKBAR",
-        payload: "Wishlist Updated"
+        payload: "Wishlist Updated",
       });
     }
   } catch (error) {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: error.response.data.error
+      payload: error.response.data.error,
     });
+  }
+};
+
+export const checkout = async (snackbarDispatch) => {
+  try {
+    snackbarDispatch({
+      type: "SHOW_SNACKBAR",
+      payload: "Connecting to Razorpay..."
+    })
+    const res = await loadScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
+    if (!res) {
+      return;
+    }
+    const response = await axios.post('https://bookslearnfinancefun-backend.ishubhamsingh.repl.co/order');
+    if (!response.data.success) {
+      console.log(response);
+      throw new Error("Cannot checkout right now");
+    }
+    const options = {
+      key: process.env["RAZORPAY_KEY_ID"],
+      amount: response.data.order.amount,
+      currency: response.data.order.currency,
+      name: "Learn Finance",
+      description: "Happy reading :)",
+      image: "https://res.cloudinary.com/shubhamsingh/image/upload/v1632476108/dh4nkahoafkmmvpu07cp.png",
+      order_id: response.data.order.razorpay_order_id,
+      callback_url: "https://books.learnfinance.fun",
+      prefill: {
+        name: response.data.name,
+        email: response.data.email,
+        contact: "",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    const razor = new window.Razorpay(options);
+    razor.open();
+  } catch (error) {
+    console.log(error);
   }
 };
