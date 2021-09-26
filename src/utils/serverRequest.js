@@ -9,6 +9,7 @@ import {
   CHANGE_QUANTITY,
   SIGNUP,
   GET_USER,
+  ORDER,
 } from "./apiRoutes";
 import { loadScript } from "./function";
 
@@ -267,7 +268,7 @@ export const checkout = async (snackbarDispatch) => {
     if (!res) {
       return;
     }
-    const response = await axios.post('https://bookslearnfinancefun-backend.ishubhamsingh.repl.co/order');
+    const response = await axios.post(ORDER);
     if (!response.data.success) {
       console.log(response);
       throw new Error("Cannot checkout right now");
