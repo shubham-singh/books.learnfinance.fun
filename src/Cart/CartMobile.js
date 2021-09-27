@@ -1,15 +1,16 @@
 import Product from "../Product/Product";
 import { useCart } from "./CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
 import { checkout } from "../utils/serverRequest";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
 
 const CartMobile = () => {
-  const { cart, total, items } = useCart();
+  const { cart, total, items, cartDispatch } = useCart();
   const { language } = useLocalisation();
   const { snackbarDispatch } = useSnackbar();
+  const navigate = useNavigate();
 
   if (items === 0) {
     return (
@@ -37,7 +38,7 @@ const CartMobile = () => {
           })}
         </div>
         <div className="empty-space"></div>
-        <div className="stick-b large" onClick={() => checkout(snackbarDispatch)}>
+        <div className="stick-b large" onClick={() => checkout(snackbarDispatch, cartDispatch, navigate)}>
           <span>{lang[language].checkout}</span>
           <span>&#8377; {total.toLocaleString()}</span>
         </div>

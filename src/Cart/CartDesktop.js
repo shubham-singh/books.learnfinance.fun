@@ -2,15 +2,16 @@ import ProductHorizontal from "../Product/ProductHorizontal";
 import { useCart } from "./CartContext";
 import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { checkout } from "../utils/serverRequest";
 import { useSnackbar } from "../Snackbar/SnackbarContext";
 import React from "react";
 
 const CartDesktop = () => {
-  const { cart, total, items } = useCart();
+  const { cart, total, items, cartDispatch } = useCart();
   const { language } = useLocalisation();
   const { snackbarDispatch } = useSnackbar();
+  const navigate = useNavigate();
 
   if (items === 0) {
     return (
@@ -58,10 +59,9 @@ const CartDesktop = () => {
           <h2 className="m-m">
             {lang[language].total}: &#8377; {total.toLocaleString()}
           </h2>
-          <button className="btn btn-classic shadow" onClick={() => checkout(snackbarDispatch)}>
-            {/* <a target="_blank" onClick={checkout}> */}
+          <button className="btn btn-classic shadow" onClick={() => checkout(snackbarDispatch, cartDispatch, navigate)}>
+
               {lang[language].checkout}
-            {/* </a> */}
           </button>
         </div>
       </div>

@@ -259,12 +259,12 @@ export const addOrRemoveFromWishlist = async (
   }
 };
 
-export const checkout = async (snackbarDispatch) => {
+export const checkout = async (snackbarDispatch, cartDispatch, navigate) => {
   try {
     snackbarDispatch({
       type: "SHOW_SNACKBAR",
-      payload: "Connecting to Razorpay..."
-    })
+      payload: "Connecting to Razorpay...",
+    });
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -282,9 +282,25 @@ export const checkout = async (snackbarDispatch) => {
       currency: response.data.order.currency,
       name: "Learn Finance",
       description: "Happy reading :)",
-      image: "https://res.cloudinary.com/shubhamsingh/image/upload/v1632476108/dh4nkahoafkmmvpu07cp.png",
+      image:
+        "https://res.cloudinary.com/shubhamsingh/image/upload/v1632476108/dh4nkahoafkmmvpu07cp.png",
       order_id: response.data.order.razorpay_order_id,
-      callback_url: "https://books.learnfinance.fun",
+      remember_customer: false,
+      handler: async function (razorpay_response) {
+        const payment_success_response = await axios.post(`${ORDER}/verify`, {
+          order_id: response.data.order._id,
+          razorpay_order_id: razorpay_response.razorpay_order_id,
+          razorpay_payment_id: razorpay_response.razorpay_payment_id,
+          razorpay_signature: razorpay_response.razorpay_signature
+        })
+        if (payment_success_response.data.success) {
+          cartDispatch({
+            type: "SET_CART",
+            payload: []
+          })
+          navigate('/')
+        }
+      },
       prefill: {
         name: response.data.name,
         email: response.data.email,
