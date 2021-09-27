@@ -53,6 +53,13 @@ export const userHandler = (user, navigate) => {
   }
 };
 
+export const deleteAuthToken = () => {
+  localStorage.removeItem("auth_learnfinance");
+  setTimeout(() => {
+    window.location.reload();
+  }, 0)
+};
+
 export const scrollToTop = () => {
   window.scroll({
     top: 0,

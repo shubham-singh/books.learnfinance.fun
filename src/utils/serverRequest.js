@@ -11,7 +11,7 @@ import {
   GET_USER,
   ORDER,
 } from "./apiRoutes";
-import { loadScript } from "./function";
+import { deleteAuthToken, loadScript } from "./function";
 
 export const getBooks = async (productDispatch, trimNames, setLoader) => {
   setLoader("show");
@@ -46,6 +46,9 @@ export const getCart = async (cartDispatch) => {
       payload: cart.data.cart.books,
     });
   } catch (error) {
+    if (error.response.data.error === "jwt expired") {
+      deleteAuthToken();
+    }
     console.log(error);
   }
 };
