@@ -3,38 +3,54 @@ import { useLocalisation } from "../Localisation/LocalisationContext";
 import { lang } from "../Localisation/LocalisationData";
 
 const SortFilterDesktop = () => {
-  const { productDispatch, showInventoryAll, category } = useProduct();
+  const { productDispatch, sortBy, showInventoryAll, category } = useProduct();
   const { language } = useLocalisation();
 
   return (
     <aside className="sidebar">
       <div>
         <h2>{lang[language].sortBy}</h2>
-        <div
-          className="pointer"
-          onClick={() => {
-            productDispatch({ type: "SORT", payload: "LOW_TO_HIGH" });
-          }}
-        >
-          <span>{lang[language].lowToHigh}</span>
+        <div>
+          <input
+            className="pointer mr-s"
+            type="radio"
+            id="low-to-high"
+            name="sort"
+            value="LOW_TO_HIGH"
+            checked={sortBy === "LOW_TO_HIGH"}
+            onChange={() => {
+              productDispatch({ type: "SORT", payload: "LOW_TO_HIGH" });
+            }}
+          />
+          <label htmlFor="low-to-high">{lang[language].lowToHigh}</label>
         </div>
-
-        <div
-          className="pointer"
-          onClick={() => {
-            productDispatch({ type: "SORT", payload: "HIGH_TO_LOW" });
-          }}
-        >
-          <span>{lang[language].highToLow}</span>
+        <div>
+          <input
+            className="pointer mr-s"
+            type="radio"
+            id="high-to-low"
+            name="sort"
+            value="HIGH_TO_LOW"
+            checked={sortBy === "HIGH_TO_LOW"}
+            onChange={() => {
+              productDispatch({ type: "SORT", payload: "HIGH_TO_LOW" });
+            }}
+          />
+          <label htmlFor="high-to-low">{lang[language].highToLow}</label>
         </div>
-
-        <div
-          className="pointer"
-          onClick={() => {
-            productDispatch({ type: "REMOVE_SORT" });
-          }}
-        >
-          <span>{lang[language].reset}</span>
+        <div>
+          <input
+            className="pointer mr-s"
+            type="radio"
+            id="reset"
+            name="sort"
+            value="null"
+            checked={sortBy === "RESET"}
+            onChange={() => {
+              productDispatch({ type: "REMOVE_SORT" });
+            }}
+          />
+          <label htmlFor="reset">{lang[language].reset}</label>
         </div>
 
         <h2>{lang[language].filter}</h2>
@@ -49,7 +65,7 @@ const SortFilterDesktop = () => {
             onChange={() => {
               productDispatch({
                 type: "FILTER_BY_CATEGORY",
-                payload: "Value Investing"
+                payload: "Value Investing",
               });
             }}
           />
@@ -66,7 +82,7 @@ const SortFilterDesktop = () => {
             onChange={() => {
               productDispatch({
                 type: "FILTER_BY_CATEGORY",
-                payload: "Options Trading"
+                payload: "Options Trading",
               });
             }}
           />
@@ -83,7 +99,7 @@ const SortFilterDesktop = () => {
             onChange={() => {
               productDispatch({
                 type: "FILTER_BY_CATEGORY",
-                payload: "Technical Analysis"
+                payload: "Technical Analysis",
               });
             }}
           />

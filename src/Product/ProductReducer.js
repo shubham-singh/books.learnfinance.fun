@@ -34,7 +34,7 @@ export const ProductReducer = (state, action) => {
     case "REMOVE_SORT":
       return {
         ...state,
-        sortBy: null
+        sortBy: "RESET"
       };
 
     case "INCLUDE_OUT_OF_STOCK":
