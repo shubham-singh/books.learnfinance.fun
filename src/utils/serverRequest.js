@@ -13,6 +13,24 @@ import {
 } from "./apiRoutes";
 import { deleteAuthToken, loadScript } from "./function";
 
+export const getBook = async (bookID, setBook, setLoader) => {
+  try {
+    setLoader("show");
+    const response = await axios.get(`${GET_BOOKS}/${bookID}`);
+    if (response.data.success) {
+      setBook(response.data.book);
+      setLoader(null);
+    }
+    if (!response.data.success && response.data.error === "Book not found") {
+      setLoader(null);
+      setBook("Book not fonud");
+    }
+  } catch (error) {
+    console.log(error);
+    setLoader("error");
+  }
+};
+
 export const getBooks = async (productDispatch, trimNames, setLoader) => {
   setLoader("show");
   try {
@@ -291,14 +309,14 @@ export const checkout = async (snackbarDispatch, cartDispatch, navigate) => {
           order_id: response.data.order._id,
           razorpay_order_id: razorpay_response.razorpay_order_id,
           razorpay_payment_id: razorpay_response.razorpay_payment_id,
-          razorpay_signature: razorpay_response.razorpay_signature
-        })
+          razorpay_signature: razorpay_response.razorpay_signature,
+        });
         if (payment_success_response.data.success) {
           cartDispatch({
             type: "SET_CART",
-            payload: []
-          })
-          navigate('/')
+            payload: [],
+          });
+          navigate("/");
         }
       },
       prefill: {

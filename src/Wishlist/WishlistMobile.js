@@ -36,7 +36,6 @@ const WishlistMobile = () => {
                 year={product.year}
                 product={product}
                 wishlistView={true}
-                cartButtonText="Move To Cart"
               />
               <hr className="w-full" />
             </>

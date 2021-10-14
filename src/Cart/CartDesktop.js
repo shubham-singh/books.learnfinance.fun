@@ -45,7 +45,7 @@ const CartDesktop = () => {
           <div className="cart-list">
             {cart.map((product) => {
               return (
-                <span key={product._id} className="flex-r justify-b m-m">
+                <span key={product.book._id} className="flex-r justify-b m-m">
                   <span>
                     {product.book.title.length > 35
                       ? product.book.title.slice(0, 35) + "..."

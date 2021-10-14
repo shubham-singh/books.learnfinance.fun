@@ -26,12 +26,11 @@ const WishlistDesktop = () => {
       {wishlist.map((product) => {
         return (
           <Product
-            key={product.id}
+            key={product._id}
             name={product.name}
             year={product.year}
             product={product}
             wishlistView={true}
-            cartButtonText="Move To Cart"
           />
         );
       })}
