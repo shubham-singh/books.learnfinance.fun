@@ -3,32 +3,32 @@ export const CartReducer = (state, action) => {
     case "SET_CART":
       return {
         ...state,
-        cart: action.payload
+        cart: action.payload,
       };
 
     case "ADD_TO_CART":
       return {
         ...state,
-        cart: [...state.cart, { book: action.payload, quantity: 1 }]
+        cart: [...state.cart, { book: action.payload, quantity: 1 }],
       };
 
     case "REMOVE_FROM_CART":
       return {
         ...state,
         cart: state.cart.filter(
-          (product) => product.book._id !== action.payload._id
-        )
+          (product) => product.book._id !== action.payload.book._id
+        ),
       };
 
     case "INCREMENT":
       return {
         ...state,
         cart: state.cart.map((product) => {
-          if (product._id === action.payload._id) {
+          if (product.book._id === action.payload.book._id) {
             return { ...product, quantity: action.payload.quantity + 1 };
           }
           return { ...product };
-        })
+        }),
       };
 
     case "DECREMENT":
@@ -36,18 +36,18 @@ export const CartReducer = (state, action) => {
         return {
           ...state,
           cart: state.cart.filter(
-            (product) => product._id !== action.payload._id
-          )
+            (product) => product.book._id !== action.payload.book._id
+          ),
         };
       }
       return {
         ...state,
         cart: state.cart.map((product) => {
-          if (product._id === action.payload._id) {
+          if (product.book._id === action.payload.book._id) {
             return { ...product, quantity: action.payload.quantity - 1 };
           }
           return { ...product };
-        })
+        }),
       };
 
     default:
