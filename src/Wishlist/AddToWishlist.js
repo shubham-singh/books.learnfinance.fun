@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth/AuthContext";
 import { addOrRemoveFromWishlist } from "../utils/serverRequest";
 
-const AddToWishlist = ({ product, cartView }) => {
+const AddToWishlist = ({ product, cartView, productPageView = false }) => {
   const { wishlist, wishlistDispatch } = useWishlist();
   const { cartDispatch } = useCart();
   const { user } = useAuth();
@@ -31,6 +31,14 @@ const AddToWishlist = ({ product, cartView }) => {
       snackbarDispatch
     );
   };
+
+  if (productPageView) {
+    return <div onClick={handleClick}>
+      <WishlistIcon
+        style={isWishlisted ? { color: "#dc3545" } : { color: "white" }}
+      />
+    </div>
+  }
 
   return (
     <div className="card-dismiss shadow" onClick={handleClick}>

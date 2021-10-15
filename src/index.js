@@ -11,6 +11,7 @@ import { SnackbarContextProvider } from "./Snackbar/SnackbarContext";
 import { AuthContextProvider } from "./Auth/AuthContext";
 import { LoaderContextProvider } from "./Loader/LoaderContext";
 import { LocalisationContextProvider } from "./Localisation/LocalisationContext";
+import ScrollToTop from "./utils/scrollToTop";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -23,6 +24,7 @@ ReactDOM.render(
               <LoaderContextProvider>
                 <SnackbarContextProvider>
                   <Router>
+                    <ScrollToTop />
                     <App />
                   </Router>
                 </SnackbarContextProvider>

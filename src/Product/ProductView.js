@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import AddToCart from "../Cart/AddToCart";
+import AddToWishlist from "../Wishlist/AddToWishlist";
 import Loader from "../Loader/Loader";
 import { useLoader } from "../Loader/LoaderContext";
 import { getBook } from "../utils/serverRequest";
@@ -11,7 +12,6 @@ const ProductView = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    console.log("inside useEffect");
     getBook(id, setBook, setLoader);
   }, []);
 
@@ -24,48 +24,26 @@ const ProductView = () => {
     } else {
       return (
         <>
-          <div
-            style={{
-              padding: "2rem",
-              background: "radial-gradient(black, #3f87a6)",
-              width: "50%",
-            }}
-          >
-            {book !== null && (
-              <img
-                style={{
-                  maxHeight: "525px",
-                  maxWidth: "350px",
-                  objectFit: "contain",
-                }}
-                src={book.img.default}
-                alt="book"
-              />
-            )}
+          <div className="product-page-image">
+            {book !== null && <img src={book.img.default} alt="book" />}
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "50%",
-              padding: "2rem",
-            }}
-          >
+          <div className="product-page-content">
             {book !== null && (
               <>
-              <div>
-                <h2>{book.title}</h2>
-                <h4
-                  style={{
-                    color: "gray",
-                  }}
-                >
-                  {book.author}
-                </h4>
-                <AddToCart product={book} wishlistView={false} />
-              </div>
+                <div className="text-left">
+                  <h2>{book.title}</h2>
+                  <h4 className="text-color-gray">{book.author}</h4>
+                  <div className="flex-row-center">
+                    <div className="product-page-wishlist">
+                      <AddToWishlist
+                        product={book}
+                        cartView={false}
+                        productPageView={true}
+                      />
+                    </div>
+                    <AddToCart product={book} wishlistView={false} />
+                  </div>
+                </div>
               </>
             )}
           </div>
@@ -74,18 +52,7 @@ const ProductView = () => {
     }
   };
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        height: "100%",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
-      {showProduct()}
-    </div>
-  );
+  return <div className="product-page">{showProduct()}</div>;
 };
 
 export default ProductView;
