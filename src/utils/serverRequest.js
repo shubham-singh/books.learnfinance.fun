@@ -10,8 +10,17 @@ import {
   SIGNUP,
   GET_USER,
   ORDER,
+  BASE,
 } from "./apiRoutes";
 import { deleteAuthToken, loadScript } from "./function";
+
+export const pingServer = async () => {
+  try {
+    await axios.get(BASE);
+  } catch (error) {
+    console.error('Failed to start server');
+  }
+} 
 
 export const getBook = async (bookID, setBook, setLoader) => {
   try {

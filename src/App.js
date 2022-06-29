@@ -13,9 +13,15 @@ import Login from "./Login/Login";
 import Signup from "./Login/Signup";
 import Home from "./Home/Home";
 import Footer from "./Footer/Footer";
+import { useEffect } from "react";
+import { pingServer } from "./utils/serverRequest";
 
 export default function App() {
   const location = useLocation();
+
+  useEffect(() => {
+    pingServer();
+  }, [])
 
   return (
     <div className="App">

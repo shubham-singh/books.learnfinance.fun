@@ -1,3 +1,4 @@
+export const BASE = "https://books-learnfinance-fun.herokuapp.com";
 export const GET_BOOKS = "https://books-learnfinance-fun.herokuapp.com/books";
 export const LOGIN = "https://books-learnfinance-fun.herokuapp.com/user/login";
 export const SIGNUP =
